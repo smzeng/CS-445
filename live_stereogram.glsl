@@ -16,7 +16,7 @@ float sdf_box( vec3 point, vec3 dims ) {
 
 // describes the signed distance function to the scene, right now containing just a box
 float sdf_scene(vec3 point) {
-    mat2x2 rot_h = rot((face_pos.x+face_pos.y)/200.0);    // create rotation according to face position
+    mat2x2 rot_h = rot((face_pos.x+face_pos.y)/300.0);    // create rotation according to face position
     point.xz *= rot_h;                      // rotate box by rotating input point
 
     return sdf_box(point, vec3(0.3,0.3,0.3));

@@ -8,7 +8,7 @@ class LiveStereogram(arcade.Window):
 
     def __init__(self):
         # initialize with parent constructor
-        window_size = (1920, 1080)
+        window_size = (1280, 720)
         super().__init__(width=window_size[0], height=window_size[1])
 
 
