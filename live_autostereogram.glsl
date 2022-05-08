@@ -60,16 +60,16 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
     // initialize parameters
     float tile_width =  150.0; // repeat interval for zero depth
     float tile_height = 200.0; // repeat interval height-wise
-    float max_offset =  40.0;  // maximum offset relative to repeat interval
+    float intensity =  0.3;    // depth intensity
      
     // initialize uv at current pixel position
     vec2 curr_coord = fragCoord.xy;
     // work backwards from current pixel position, computing dependent solutions of pixels to the left
     for(int i = 0; i < iResolution.x/tile_width; i++) {
-        if(curr_coord.x < tile_width) break;                        // first column defines initial offset
-        float depth = getDepth(curr_coord);                         // get depth from ray marching
-        float backwards_offset = tile_width - (depth * max_offset); // depth at point gives previous solution location
-        curr_coord.x -= backwards_offset;                           // goes backwards to previous column
+        if(curr_coord.x < tile_width) break;                                    // first column defines initial offset
+        float depth = getDepth(curr_coord);                                     // get depth from ray marching
+        float backwards_offset = tile_width - (depth * tile_width * intensity); // depth at point gives previous solution location
+        curr_coord.x -= backwards_offset;                                       // goes backwards to previous column
     }
     vec2 sample_point = vec2(mod(curr_coord.x, tile_width), mod(curr_coord.y, tile_height)); // clamp sample point within texture bounds
     vec3 sample_color = texture( iChannel0, sample_point/vec2(tile_width, tile_height)).xyz; // sample texture with normalized coordinates
