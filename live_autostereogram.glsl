@@ -1,3 +1,7 @@
+// Live autostereogram fragment shader
+// CS 445 Final Project
+// Michael Korenchan, Stacy Zeng, Surya Bandyopadhyay
+
 uniform vec2 face_pos;  // uniform for face position (y component is currently mouse position)
 
 // creates a 2x2 rotation matrix for a give angle
@@ -17,7 +21,7 @@ float sdf_box( vec3 point, vec3 dims ) {
 // describes the signed distance function to the scene, right now containing just a box
 float sdf_scene(vec3 point) {
     mat2x2 rot_h = rot((face_pos.x+face_pos.y)/300.0);    // create rotation according to face position
-    point.xz *= rot_h;                      // rotate box by rotating input point
+    point.xz *= rot_h;                      			  // rotate box by rotating input point
 
     return sdf_box(point, vec3(0.3,0.3,0.3));
 }
@@ -42,11 +46,11 @@ float rayMarch(vec3 start, vec3 dir) {
 
 float getDepth(vec2 frag_coord) {
     vec2 uv = (2.0*frag_coord - iResolution.xy) / iResolution.y; // get normalized coordinates
-    vec3 cam_dir = normalize(vec3(uv.xy,-1.3));                 // image plane 1.3
+    vec3 cam_dir = normalize(vec3(uv.xy,-1.3));                  // image plane 1.3
     vec3 cam_pos = vec3(0.0,0.0,1.0);
 
     float depth = rayMarch(cam_pos, cam_dir);   // raymarch to get distance
-    depth = 1.0-clamp(depth/1.5,0.0,1.0);   // adjust to range [0,1]
+    depth = 1.0-clamp(depth/1.5,0.0,1.0);       // adjust to range [0,1]
 
     return depth;
 }
@@ -62,8 +66,8 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
     vec2 curr_coord = fragCoord.xy;
     // work backwards from current pixel position, computing dependent solutions of pixels to the left
     for(int i = 0; i < iResolution.x/tile_width; i++) {
-        if(curr_coord.x < tile_width) break;                        // first row defines initial offset
-        float depth = getDepth(curr_coord);                         // get depth
+        if(curr_coord.x < tile_width) break;                        // first column defines initial offset
+        float depth = getDepth(curr_coord);                         // get depth from ray marching
         float backwards_offset = tile_width - (depth * max_offset); // depth at point gives previous solution location
         curr_coord.x -= backwards_offset;                           // goes backwards to previous column
     }

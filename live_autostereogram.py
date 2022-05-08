@@ -1,3 +1,7 @@
+# Live autostereogram program
+# CS 445 Final Project
+# Michael Korenchan, Stacy Zeng, Surya Bandyopadhyay
+
 import arcade
 from arcade.experimental import Shadertoy
 import cv2
@@ -47,7 +51,7 @@ class LiveStereogram(arcade.Window):
             # if there are any faces at all, just return the first value
             x -= frame.shape[1] / 2.5
             self.last_x = x
-            return x
+            return self.last_x
         return self.last_x
 
 
