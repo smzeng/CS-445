@@ -17,7 +17,7 @@ class LiveStereogram(arcade.Window):
 
 
         # load glsl shader file and initialize renderer object
-        file_name = "live_stereogram.glsl"
+        file_name = "live_autostereogram.glsl"
         self.shader_renderer = Shadertoy(size=self.get_size(), main_source=open(file_name).read())
 
         # load texture for tiling
