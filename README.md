@@ -1,5 +1,5 @@
 # CS 445 Final Project - Autostereograms
-## Michael Korenchan, Stacy Zeng, Surya Bandyopadhyay; May 2022
+Michael Korenchan, Stacy Zeng, Surya Bandyopadhyay; May 2022
 <br></br>
 ## Files/Instructions:
 - `autostereograms.ipynb` includes random-dot and tiled autostereogram generation, autostereogram decoding, and animated autostrereograms. Each of these can be interactively ran and tweaked within the Jupyter Notebook.
